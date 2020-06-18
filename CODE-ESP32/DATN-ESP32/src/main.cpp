@@ -1,5 +1,6 @@
 /*
   DEV by ThuongHuynh
+  ESP32 connect to Winform APP use TCP/IP
 */
 
 #include <Arduino.h>
