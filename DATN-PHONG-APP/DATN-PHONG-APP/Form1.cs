@@ -155,7 +155,7 @@ namespace DATN_PHONG_APP
                 m_sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
                 // Define the Server address and port
-                IPEndPoint epServer = new IPEndPoint(IPAddress.Parse("192.168.1.184"), 80); //192.168.1.184 => vi => phong 172.20.10.184
+                IPEndPoint epServer = new IPEndPoint(IPAddress.Parse("192.168.2.184"), 80); //192.168.1.184 => vi => phong 172.20.10.184
 
                 // Connect to the server blocking method and setup callback for recieved data
                 // m_sock.Connect( epServer );
@@ -170,7 +170,7 @@ namespace DATN_PHONG_APP
             catch (Exception)
             {
                 //MessageBox.Show(this, ex.Message, "Server Connect failed!");
-                MessageBox.Show("Lỗi kết nối đến máy chủ"); pic_connect.Image = Properties.Resources.notconnected;
+               // MessageBox.Show("Lỗi kết nối đến máy chủ"); pic_connect.Image = Properties.Resources.notconnected;
             }
             Cursor.Current = cursor;
         }
@@ -189,17 +189,13 @@ namespace DATN_PHONG_APP
                     //senData("Connected");
                     pic_connect.Image = Properties.Resources.connected;
                 }
-                    
-                else {
-                    //MessageBox.Show(this, "Unable to connect to remote machine", "Connect Failed!");
-                    MessageBox.Show("Lỗi kết nối đến máy chủ"); pic_connect.Image = Properties.Resources.notconnected;
-                }
+                
                     
             }
             catch (Exception)
             {
                 //MessageBox.Show(this, ex.Message, "Unusual error during Connect!");
-                MessageBox.Show("Lỗi kết nối đến máy chủ");
+                //MessageBox.Show("Lỗi kết nối đến máy chủ");
             }
         }
         public void OnRecievedData(IAsyncResult ar)
@@ -224,13 +220,7 @@ namespace DATN_PHONG_APP
                     // If the connection is still usable restablish the callback
                     SetupRecieveCallback(sock);
                 }
-                else
-                {
-                    // If no data was recieved then the connection is probably dead
-                    //Console.WriteLine("Client {0}, disconnected", sock.RemoteEndPoint);
-                    sock.Shutdown(SocketShutdown.Both);
-                    sock.Close();
-                }
+                
             }
             catch (InvalidOperationException exc)
             {
@@ -380,17 +370,19 @@ namespace DATN_PHONG_APP
             catch (Exception)
             {
                 //MessageBox.Show(this, ex.Message, "Setup Recieve Callback failed!");
-                MessageBox.Show("Lỗi cấu hình nhận dữ liệu");
+                //MessageBox.Show("Lỗi cấu hình nhận dữ liệu");
             }
         }
-
+        static bool IsSocketConnected(Socket s)
+        {
+            return !((s.Poll(1000, SelectMode.SelectRead) && (s.Available == 0)) || !s.Connected);
+        }
         // *********************** SEND *********************************
         private void senData(String text)
         {
             // Check we are connected
             if (m_sock == null || !m_sock.Connected)
             {
-                MessageBox.Show(this, "Must be connected to Send a message");
                 return;
             }
 
@@ -404,17 +396,30 @@ namespace DATN_PHONG_APP
             catch (Exception)
             {
                 //MessageBox.Show(this, ex.Message, "Send Message Failed!");
-                MessageBox.Show("Lỗi gửi dữ liệu");
+                //MessageBox.Show("Lỗi gửi dữ liệu");
             }
         }
 
 
-
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick_1(object sender, EventArgs e)
         {
-            //chart1.Series["ĐIỆN NĂNG"].XValueMember += kwh;
-        }
+            try
+            {
+                if (!IsSocketConnected(m_sock) || m_sock == null)
+                {
+                    connected();
+                }
+                else
+                {
+                    senData("OK");
+                }
 
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
 
         private void btnConnect_Click_1(object sender, EventArgs e)
@@ -493,6 +498,8 @@ namespace DATN_PHONG_APP
             }
         }
 
+        
+
         private void gui_Click(object sender, EventArgs e)
         {
             senData("set"+nhietdo_gialap.Text);
@@ -524,7 +531,7 @@ namespace DATN_PHONG_APP
             if (manual_stt == false)
             {
                 lbl_nhietdothucte.Text = (Convert.ToInt32(lbl_nhietdothucte.Text) + 1).ToString();
-                senData("temp"+lbl_nhietdothucte.Text);
+                senData("temp" + lbl_nhietdothucte.Text);
             }
 
         }

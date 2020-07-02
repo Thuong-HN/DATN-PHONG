@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DATN));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -59,6 +60,9 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.gui = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.nhietdo_gialap = new System.Windows.Forms.TextBox();
             this.chk_0 = new System.Windows.Forms.CheckBox();
             this.chk_100 = new System.Windows.Forms.CheckBox();
             this.chk_75 = new System.Windows.Forms.CheckBox();
@@ -76,9 +80,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pic_connect = new System.Windows.Forms.PictureBox();
-            this.nhietdo_gialap = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.gui = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_domovan)).BeginInit();
             this.panel4.SuspendLayout();
@@ -166,7 +168,7 @@
             // pic_domovan
             // 
             this.pic_domovan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pic_domovan.Image = global::DATN_PHONG_APP.Properties.Resources.van0;
+            this.pic_domovan.Image = ((System.Drawing.Image)(resources.GetObject("pic_domovan.Image")));
             this.pic_domovan.Location = new System.Drawing.Point(95, 131);
             this.pic_domovan.Name = "pic_domovan";
             this.pic_domovan.Size = new System.Drawing.Size(198, 166);
@@ -358,7 +360,7 @@
             // 
             // btn_down
             // 
-            this.btn_down.BackgroundImage = global::DATN_PHONG_APP.Properties.Resources.down;
+            this.btn_down.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_down.BackgroundImage")));
             this.btn_down.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_down.Location = new System.Drawing.Point(7, 103);
             this.btn_down.Name = "btn_down";
@@ -369,7 +371,7 @@
             // 
             // btn_up
             // 
-            this.btn_up.BackgroundImage = global::DATN_PHONG_APP.Properties.Resources.up;
+            this.btn_up.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_up.BackgroundImage")));
             this.btn_up.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_up.Location = new System.Drawing.Point(7, 58);
             this.btn_up.Name = "btn_up";
@@ -413,6 +415,35 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(417, 382);
             this.panel6.TabIndex = 3;
+            // 
+            // gui
+            // 
+            this.gui.Location = new System.Drawing.Point(159, 320);
+            this.gui.Name = "gui";
+            this.gui.Size = new System.Drawing.Size(82, 43);
+            this.gui.TabIndex = 16;
+            this.gui.Text = "GỬI";
+            this.gui.UseVisualStyleBackColor = true;
+            this.gui.Click += new System.EventHandler(this.gui_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Blue;
+            this.label12.Location = new System.Drawing.Point(112, 201);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(162, 23);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "Nhiệt độ giả lập";
+            // 
+            // nhietdo_gialap
+            // 
+            this.nhietdo_gialap.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nhietdo_gialap.Location = new System.Drawing.Point(137, 268);
+            this.nhietdo_gialap.Name = "nhietdo_gialap";
+            this.nhietdo_gialap.Size = new System.Drawing.Size(118, 46);
+            this.nhietdo_gialap.TabIndex = 1;
+            this.nhietdo_gialap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // chk_0
             // 
@@ -573,7 +604,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::DATN_PHONG_APP.Properties.Resources.mute;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(6, 41);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(137, 121);
@@ -583,7 +614,7 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::DATN_PHONG_APP.Properties.Resources.dien;
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(966, 41);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(130, 121);
@@ -594,7 +625,7 @@
             // pic_connect
             // 
             this.pic_connect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pic_connect.Image = global::DATN_PHONG_APP.Properties.Resources.connected;
+            this.pic_connect.Image = ((System.Drawing.Image)(resources.GetObject("pic_connect.Image")));
             this.pic_connect.Location = new System.Drawing.Point(26, 676);
             this.pic_connect.Name = "pic_connect";
             this.pic_connect.Size = new System.Drawing.Size(44, 37);
@@ -602,34 +633,11 @@
             this.pic_connect.TabIndex = 9;
             this.pic_connect.TabStop = false;
             // 
-            // nhietdo_gialap
+            // timer1
             // 
-            this.nhietdo_gialap.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nhietdo_gialap.Location = new System.Drawing.Point(137, 268);
-            this.nhietdo_gialap.Name = "nhietdo_gialap";
-            this.nhietdo_gialap.Size = new System.Drawing.Size(118, 46);
-            this.nhietdo_gialap.TabIndex = 1;
-            this.nhietdo_gialap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.Color.Blue;
-            this.label12.Location = new System.Drawing.Point(112, 201);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(162, 23);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "Nhiệt độ giả lập";
-            // 
-            // gui
-            // 
-            this.gui.Location = new System.Drawing.Point(159, 320);
-            this.gui.Name = "gui";
-            this.gui.Size = new System.Drawing.Size(82, 43);
-            this.gui.TabIndex = 16;
-            this.gui.Text = "GỬI";
-            this.gui.UseVisualStyleBackColor = true;
-            this.gui.Click += new System.EventHandler(this.gui_Click);
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 10000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
             // DATN
             // 
@@ -730,6 +738,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox nhietdo_gialap;
         private System.Windows.Forms.Button gui;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
